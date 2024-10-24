@@ -27,14 +27,18 @@ export class Controller {
     
     async downloadVideo(event) {
         try {
+            if (this.settings.file.path == null) {
+                alert("You are not enter the path");
+                return
+            }
+            this.animation.downloadButtonBounce(this.button.download);
+
             this.animation.openLoadScreen(this.div.loader,this.div.main);
 
             const url = this.input.url.value;
             this.settings.file.url = url; 
 
-            const message = await window.electron.ipcRenderer.invoke('download-video', settings.file);
-
-            this.animation.downloadButtonBounce(this.button.download);
+            const message = await window.electron.ipcRenderer.invoke('download-video', this.settings.file);
 
             this.animation.closeLoadScreen(this.div.loader,this.div.main);
 
@@ -43,14 +47,24 @@ export class Controller {
             this.animation.closeDownloadButton(this.img.download,this.button.download);
         }  
     }
+    
+    isValidYouTubeUrl(url) {
+        const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|v\/|.+\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})(\S*)?$/;
+        return regex.test(url);
+    }
 
     async urlValid(event) {
         try {
-            this.animation.openLoadScreen(this.div.loader,this.div.main);
-
             const clipboard = event.clipboardData;
-            const url = clipboard ? clipboard.getData("text") : videoUrlInput.value; 
+            const url = clipboard ? clipboard.getData("text") : this.input.url.value; 
 
+            if (!this.isValidYouTubeUrl(url)) {
+                this.animation.closeDownloadButton(this.img.download,this.button.download);
+                return 
+            }
+
+            this.animation.openLoadScreen(this.div.loader,this.div.main);
+                    
             const response = await window.electron.ipcRenderer.invoke('control-video', url);
 
             if (response.valid) {   
@@ -60,6 +74,7 @@ export class Controller {
             }
 
             this.animation.closeLoadScreen(this.div.loader,this.div.main);
+
         } catch (error) {
             console.error("Error validating URL:", error);
             downloadButton.disabled = true;
@@ -67,7 +82,7 @@ export class Controller {
     } 
 
     add() {
-        ["paste","click"].forEach((eventType) => {
+        ["paste","input"].forEach((eventType) => {
             this.input.url.addEventListener(eventType, async (event) => {
                 await this.urlValid(event);
             });

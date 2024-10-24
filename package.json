@@ -9,9 +9,32 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^33.0.1"
+    "electron": "^33.0.1",
+    "electron-builder": "^25.1.8"
   },
   "dependencies": {
     "ytdl-core": "^4.11.5"
+  },
+  "build": {
+    "appId": "com.example.counter",
+    "productName": "CounterApp",
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "Doğukan AL <al_dokan_20@hotmail.com>"
+    }
   }
 }

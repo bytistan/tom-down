@@ -50,7 +50,10 @@
         </div>
         <div class="enter-box">
             <div class="url-container">
-                <input class="url-input" placeholder="Enter URL" id="video-url"> 
+                <!-- Fix here --->
+                <mat-form-field appearance="none" style="width:75%;">
+                    <input type="text" matInput class="url-input" placeholder="Enter URL" id="video-url"> 
+                </mat-form-field>
                 
                 <button id="download" disabled>
                     <img id="download-icon" class="download-icon" src="../../resources/icon/download.svg">

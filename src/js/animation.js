@@ -14,13 +14,13 @@ export class Animation {
     }
 
     openDownloadButton(downloadIcon, thumbnailImage, downloadButton, thumbnailUrl) {
-        downloadIcon.src = "resources/icon/green-download.svg";
+        downloadIcon.src = "../../resources/icon/green-download.svg";
         thumbnailImage.src = thumbnailUrl;     
         downloadButton.disabled = false;
     }
 
     closeDownloadButton(downloadIcon,downloadButton) {
-        downloadIcon.src = "resources/icon/red-download.svg"
+        downloadIcon.src = "../../resources/icon/red-download.svg"
         downloadButton.disabled = true;
     }
 
