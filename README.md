@@ -5,18 +5,27 @@ It is a program that allows you to download audio or video files from Youtube.
 ## Usage
 
 **1. Install Repository**
+
   ```bash
   git clone https://github.com/bytistan/tom-down
   ```
 **2. Change Directory**
+
   ```bash
   cd tom-down
   ```
 **3. Download Dependencies**
+
   ```bash
   npm install --save-dev electron
   ```
+
+  ```bash
+  sudo apt install -y yt-dlp
+  ```
+
 **4. Run Application**
+
   ```bash
   npm start
   ```
