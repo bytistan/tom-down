@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TomDown</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="../css/style.css">
+</head> 
+<body>
+    <div id="loader" class="loader" style="display: none;"></div>
+
+    <main class="container" id="main">
+        <div class="video-info">
+            <img class="video-thumbnail" id="thumbnail"></img> 
+        </div>
+        <div class="settings-box">
+            <div class="s-container" id="quality-box">
+                <div class="s-item-selected">
+                    <p class="s-text" name="720p">720p</p> 
+                </div> 
+                <div class="s-item">
+                    <p class="s-text" name="480p">480p</p> 
+                </div> 
+                <div class="s-item">
+                    <p class="s-text" name="360p">360p</p> 
+                </div> 
+                <div class="s-item">
+                    <p class="s-text" name="144p">144p</p> 
+                </div> 
+            </div> 
+
+            <div class="s-container" id="format-box">
+                <div class="s-item">
+                    <p name="mp4" class="s-text">mp4</p>
+                </div> 
+                <div class="s-item-selected">
+                    <p name="mp3" class="s-text">mp3</p>
+                </div> 
+            </div>
+            
+            <div class="s-container">
+                <div class="s-exception" id="file-path">
+                    <img width="20" height="20" class="ms-1" src="../../resources/icon/file.svg">
+                    <p class="s-text">File path</p>
+                </div> 
+                <div class="s-exception">
+                    <p class="ms-1 s-text"><span id="file-name">file</span>.<span id="format-text">mp3</span></p>
+                </div> 
+            </div>
+        </div>
+        <div class="enter-box">
+            <div class="url-container">
+                <!-- Fix here --->
+                <mat-form-field appearance="none" style="width:75%;">
+                    <input type="text" matInput class="url-input" placeholder="Enter URL" id="video-url"> 
+                </mat-form-field>
+                
+                <button id="download" disabled>
+                    <img id="download-icon" class="download-icon" src="../../resources/icon/download.svg">
+                </button>
+            </div> 
+        </div>
+    </main>
+    
+    <script src="../../renderer.js"></script>
+
+    <script src="../js/controller.js" type="module">
+    </script>
+</body>
+</html>

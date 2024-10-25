@@ -15,7 +15,7 @@
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('resources/font/Open_Sans/static/OpenSans-Regular.ttf') format('truetype'),
+    src: url('../../resources/font/Open_Sans/static/OpenSans-Regular.ttf') format('truetype'),
 }
 
 * {
@@ -146,7 +146,6 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:1.25rem;
     width:90%;
 }
 
@@ -167,6 +166,12 @@
 input {
     all:unset;
 }
+
+input:invalid {
+    border-color: transparent !important; 
+    box-shadow: none !important; 
+}
+
 
 button {
     all:unset;

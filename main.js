@@ -1,14 +1,18 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron/main')
-const path = require('node:path')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron/main');
+const { exec } = require('child_process');
+const { Notification } = require('electron');
 
+const path = require('node:path');
 const ytdl = require('ytdl-core');
 const fs = require('fs');
-const { exec } = require('child_process');
 
 function createWindow () {
   const win = new BrowserWindow({
     width: 480,
     height: 620,
+    // resizable: false,
+    // autoHideMenuBar:true,
+    icon: path.join(__dirname, './resources/icon/logo.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true, 
@@ -17,7 +21,7 @@ function createWindow () {
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('src/html/index.html')
 }
 
 app.whenReady().then(() => {
@@ -35,6 +39,24 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+function sendNotification(title, body) {
+  if (Notification.isSupported()) {
+    const notification = new Notification({
+      title: title,  
+      body: body     
+    });
+
+    notification.show();
+
+    notification.on('click', () => {
+
+    });
+      
+  } else {
+    console.log('This device is not support notification.');
+  }
+}
 
 ipcMain.handle("dialog:save", async (event, file) => {
     const result = await dialog.showSaveDialog({
@@ -95,10 +117,13 @@ ipcMain.handle('download-video', async (event, data) => {
                 }
             });
         });
+        
+        sendNotification("Download Complete",`Your file was downloaded successfully: ${data.name}.${data.format}`);
 
         // Send a notification when the download is complete
         return { "success": true }; 
     } catch (error) {
+        sendNotification("Download Not Complete",`Video download error: ${error}`);
         console.error("Video download error:", error);
         return { "success": false, "error": error.message };
     }
